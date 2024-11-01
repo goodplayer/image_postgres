@@ -14,6 +14,7 @@
 * [ ] Supporting customize extension
 * [ ] Supporting customize initdb parameters
 * [ ] Supporting both primary and standby instance image
+* [ ] Supporting ssl configuration & custom CA
 
 ##### Pending list
 
@@ -48,6 +49,17 @@ Default settings for container mapping:
 * Postgres port: `5432`
 * Postgres data folder: `/pgdata`
 * Postgres data wal folder: `/pgdata_wal`
+* Custom postgres conf folder: `/pgconf`
+
+Custom configure:
+
+```shell
+# create custom conf file
+touch /home/server/01-pgcustom.conf
+
+# add parameter as a mounted file:
+# -v /home/server/01-pgcustom.conf:/pgconf/01-pgcustom.conf
+```
 
 * TODO specify parameters, mount required files
 

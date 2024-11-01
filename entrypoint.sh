@@ -25,6 +25,10 @@ init_database() {
         --username=admin \
         --pwfile=/tmp/default_passwd \
         --wal-segsize=256
+    make_sure_data_folder_link $1
+}
+
+make_sure_data_folder_link() {
     sudo ln -s /pgdata /pgdata_v$1
     sudo chown admin: /pgdata_v$1
 }
@@ -35,8 +39,10 @@ basic_configure() {
 }
 
 start_database() {
+    # make sure data folder exists
+    make_sure_data_folder_link $1
     # using exec to support passing signal(when docker stop) to postgres
-    exec sudo -u admin /pg/bin/postgres -D /pgdata_v17
+    exec sudo -u admin /pg/bin/postgres -D /pgdata_v$1
 }
 
 # main flow
