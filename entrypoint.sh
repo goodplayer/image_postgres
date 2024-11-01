@@ -42,7 +42,7 @@ start_database() {
 # main flow
 # supporting entrypoint and cmd instructions in dockerfile
 if [ $1 == "postgres" ]; then
-    if [ ! -d "/pgdata" ]; then
+    if [ ! -f "/pgdata/postgresql.conf" ]; then
         init_database $2
         basic_configure
     else
