@@ -4,9 +4,9 @@
 
 set -e
 
-make_sure_data_folder_link() {
-    sudo ln -s /pgdata /pgdata_v$1
-    sudo chown admin: /pgdata_v$1
+force_link_current_database() {
+    rm -f /pgdata/current
+    ln -f -s /pgdata/$1 /pgdata/current
 }
 
 init_database() {
@@ -15,12 +15,14 @@ init_database() {
         exit 1
     fi
 
-    sudo mkdir -p /pgdata
-    sudo mkdir -p /pgdata_wal
+    sudo mkdir -p /pgdata/$1
+    sudo mkdir -p /pgdata_wal/$1
     sudo chown admin: /pgdata
+    sudo chown admin: /pgdata/$1
     sudo chown admin: /pgdata_wal
+    sudo chown admin: /pgdata_wal/$1
     sudo -u admin echo "admin" > /tmp/default_passwd
-    sudo -u admin /pg/bin/initdb -D /pgdata --waldir=/pgdata_wal \
+    sudo -u admin /pg/bin/initdb -D /pgdata/$1 --waldir=/pgdata_wal/$1 \
         --auth=scram-sha-256 \
         --auth-host=scram-sha-256 \
         --auth-local=scram-sha-256 \
@@ -32,33 +34,56 @@ init_database() {
         --username=admin \
         --pwfile=/tmp/default_passwd \
         --wal-segsize=256
-    make_sure_data_folder_link $1
 }
 
 basic_configure() {
-    cat /pgconf/hba_append >> /pgdata/pg_hba.conf
-    echo "include_dir '/pgconf'" >> /pgdata/postgresql.conf
+    # replace pg_hba.conf content
+    cat /pgconf/hba_append > /pgdata/$1/pg_hba.conf
+    # add include dir for cutomization configuration
+    echo "include_dir '/pgconf'" >> /pgdata/$1/postgresql.conf
 }
 
 start_database() {
-    # make sure data folder exists
-    make_sure_data_folder_link $1
     # using exec to support passing signal(when docker stop) to postgres
-    exec sudo -u admin /pg/bin/postgres -D /pgdata_v$1
+    exec sudo -u admin /pg/bin/postgres -D /pgdata/$1
+}
+
+check_and_do_upgrade() {
+    #FIXME Note that here the comparison between two versions is based on literal value rather than number value. If may be incorrect in some cases.
+    MIN="16"
+    MAX="17"
+
+    if [[ $MAX < `cat /pgdata/current/PG_VERSION` ]]; then
+        echo "Newer version data found. Cannot upgrade and startup the instance. Found version:" `cat /pgdata/current/PG_VERSION`
+        exit 1
+    elif [[ `cat /pgdata/current/PG_VERSION` < $MIN ]]; then
+        echo "Older version data found. Cannot upgrade and startup the instance. Found version:" `cat /pgdata/current/PG_VERSION`
+        exit 1
+    elif [[ $MAX = `cat /pgdata/current/PG_VERSION` ]]; then
+        echo "Expected postgres data version. Continue startup."
+    else
+        # between two versions, need upgrade
+        init_database $1
+        basic_configure $1
+        cd /tmp
+        sudo -u admin /pg/bin/pg_upgrade --old-datadir=/pgdata/current --new-datadir=/pgdata/$1 --old-bindir=/pg_old/bin --new-bindir=/pg/bin --check --link
+        cd -
+        force_link_current_database $1
+    fi
 }
 
 # main flow
 # supporting entrypoint and cmd instructions in dockerfile
+# $2 is version number
 if [ $1 == "postgres" ]; then
-    if [ ! -f "/pgdata/postgresql.conf" ]; then
+    if [ ! -f "/pgdata/current/PG_VERSION" ]; then
         init_database $2
-        basic_configure
+        basic_configure $2
+        force_link_current_database $2
     else
-        #TODO check upgrade needed
-        echo "already initialized!"
+        check_and_do_upgrade $2
     fi
     start_database $2
 else
     $@
 fi
-
