@@ -4,11 +4,12 @@
 
 * [x] Postgres container with contrib extensions
 * [x] Supporting version specific data folder for major version upgrading
-* [ ] Supporting auto-upgrade at container startup with recent two postgres versions(latest and one previous)
-* [ ] Supporting customizing postgres configuration
-    * Mapping configure files: TODO
-* [ ] Supporting customizing data folder
-    * Mapping folder: TODO
+* [ ] Supporting auto-upgrade at container startup with the recent two postgres major versions(latest and one previous)
+* [x] Supporting customizing postgres configuration
+    * Mapping configure files: \*.conf => /pgconf/\*.conf
+* [x] Supporting customizing data folder
+    * Mapping data folder: <folder> => /pgdata
+    * Mapping data wal folder: <folder> => /pgdata_wal
 * [x] Supporting starting container from both fresh new and existing instance
 * [x] Supporting safe container stop
 * [ ] Supporting customize extension

@@ -2,6 +2,12 @@
 # Step1: build
 FROM debian:12.7 AS build
 
+# Custom parameters
+ARG PG_SOURCE_FILE=postgresql-17.0.tar.bz2
+ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.0
+ARG OLD_PG_SOURCE_FILE=postgresql-16.4.tar.bz2
+ARG OLD_PG_SOURCE_EXTRACT_FOLDER=postgresql-16.4
+
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources
 
@@ -19,16 +25,11 @@ RUN apt install -y build-essential \
                 libssl-dev
 
 # copy postgresql sourcecode
-#TODO use parameter to set sourcecode file
-COPY postgresql-17.0.tar.bz2 /
-
+COPY ${PG_SOURCE_FILE} /
 # decompress sourcecode package
-RUN tar xf postgresql-17.0.tar.bz2 -C /
-
+RUN tar xf ${PG_SOURCE_FILE} -C /
 # compile postgresql
-#TODO use parameter to set sourcecode folder
-WORKDIR /postgresql-17.0
-#TODO use parameter to set install folder
+WORKDIR /${PG_SOURCE_EXTRACT_FOLDER}
 RUN ./configure --prefix=/pg \
     --with-blocksize=16 \
     --with-segsize=4 \
@@ -42,8 +43,31 @@ RUN ./configure --prefix=/pg \
     --with-ssl=openssl
 RUN make -j
 RUN make install
-#TODO use parameter to set sourcecode folder
-WORKDIR /postgresql-17.0/contrib
+WORKDIR /${PG_SOURCE_EXTRACT_FOLDER}/contrib
+RUN make -j
+RUN make install
+
+WORKDIR /
+# copy old postgresql sourcecode
+COPY ${OLD_PG_SOURCE_FILE} /
+# decompress sourcecode package
+RUN tar xf ${OLD_PG_SOURCE_FILE} -C /
+# compile postgresql
+WORKDIR /${OLD_PG_SOURCE_EXTRACT_FOLDER}
+RUN ./configure --prefix=/pg_old \
+    --with-blocksize=16 \
+    --with-segsize=4 \
+    --with-wal-blocksize=16 \
+    --with-llvm \
+    --with-uuid=ossp \
+    --with-libxml \
+    --with-libxslt \
+    --with-lz4 \
+    --with-zstd \
+    --with-ssl=openssl
+RUN make -j
+RUN make install
+WORKDIR /${OLD_PG_SOURCE_EXTRACT_FOLDER}/contrib
 RUN make -j
 RUN make install
 
@@ -53,6 +77,7 @@ FROM debian:12.7
 
 # copy binary files from build image to current image
 COPY --from=build /pg /pg
+COPY --from=build /pg_old /pg_old
 
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources

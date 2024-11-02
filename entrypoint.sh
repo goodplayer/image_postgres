@@ -1,6 +1,13 @@
 #!/bin/bash -xv
 
+##TODO remove debug flags above
+
 set -e
+
+make_sure_data_folder_link() {
+    sudo ln -s /pgdata /pgdata_v$1
+    sudo chown admin: /pgdata_v$1
+}
 
 init_database() {
     if [ ! -n "$1" ]; then
@@ -26,11 +33,6 @@ init_database() {
         --pwfile=/tmp/default_passwd \
         --wal-segsize=256
     make_sure_data_folder_link $1
-}
-
-make_sure_data_folder_link() {
-    sudo ln -s /pgdata /pgdata_v$1
-    sudo chown admin: /pgdata_v$1
 }
 
 basic_configure() {
