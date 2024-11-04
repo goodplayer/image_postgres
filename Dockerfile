@@ -104,5 +104,9 @@ RUN chown -R admin: /pgconf
 #=======================================
 # Step3: entrypoint
 
+# use sigint instead of default SIGTERM to stop the container fast
+# refer to https://www.postgresql.org/docs/current/server-shutdown.html
+STOPSIGNAL SIGINT
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["postgres", "17"]
