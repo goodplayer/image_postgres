@@ -89,8 +89,8 @@ RUN apt update && apt upgrade -y
 RUN apt install -y libxml2 libicu72 libssl3 libreadline8 libxslt1.1 libllvm14 libossp-uuid16 sudo
 
 # create user
-RUN groupadd admin
-RUN useradd -m -g admin admin
+RUN groupadd -g 30000 admin
+RUN useradd -u 30000 -m -g admin admin
 # for security reason, do not grant admin the sudo permission
 #RUN usermod -a -G sudo admin
 RUN usermod -a -G admin admin

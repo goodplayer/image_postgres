@@ -12,6 +12,10 @@
     * Mapping data wal folder: <folder> => /pgdata_wal
 * [x] Supporting starting container from both fresh new and existing instance
 * [x] Supporting safe container stop
+* [x] Larger uid and gid of data files
+    * `Note`: please ensure the uid and gid when mounting a volumn
+    * Current `UID`: 30000
+    * Current `GID`: 30000
 * [ ] Supporting customize extension
 * [ ] Supporting customize initdb parameters
 * [ ] Supporting both primary and standby instance image
