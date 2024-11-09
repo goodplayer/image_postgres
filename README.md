@@ -20,6 +20,7 @@
 * [ ] Supporting customize initdb parameters
 * [ ] Supporting both primary and standby instance image
 * [ ] Supporting ssl configuration & custom CA
+* [ ] Support postgresql archive mode
 
 ##### Pending list
 
