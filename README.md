@@ -18,7 +18,6 @@
     * Current `GID`: 30000
 * [ ] Supporting customize extension
 * [ ] Supporting customize initdb parameters
-* [ ] Supporting both primary and standby instance image
 * [ ] Supporting ssl configuration & custom CA
 * [ ] Support postgresql archive mode
 * [x] Support init standby database from primary database
