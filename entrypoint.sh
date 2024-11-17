@@ -72,6 +72,26 @@ check_and_do_upgrade() {
     fi
 }
 
+init_standby() {
+    if [ ! -n "$1" ]; then
+        echo "no postgresql version specified"
+        exit 1
+    fi
+
+    sudo mkdir -p /pgdata/$1
+    sudo mkdir -p /pgdata_wal/$1
+    sudo chown admin: /pgdata
+    sudo chown admin: /pgdata/$1
+    sudo chown admin: /pgdata_wal
+    sudo chown admin: /pgdata_wal/$1
+
+    sudo -u admin PGPASSWORD=$5 /pg/bin/pg_basebackup -h $2 -p $3 -U $4 -F p -R -P -D /pgdata/$1 --waldir=/pgdata_wal/$1 -C -S $6
+    sudo -u admin chmod 0700 /pgdata/$1
+    sudo -u admin chmod 0700 /pgdata_wal/$1
+
+    force_link_current_database $1
+}
+
 # main flow
 # supporting entrypoint and cmd instructions in dockerfile
 # $2 is version number
@@ -84,6 +104,8 @@ if [ $1 == "postgres" ]; then
         check_and_do_upgrade $2
     fi
     start_database $2
+elif [ $1 == "new_standby" ]; then
+    init_standby $2 $3 $4 $5 $6 $7
 else
     $@
 fi

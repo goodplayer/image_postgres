@@ -1,12 +1,12 @@
 #======================================
 # Step1: build
-FROM debian:12.7 AS build
+FROM debian:12.8 AS build
 
 # Custom parameters
-ARG PG_SOURCE_FILE=postgresql-17.0.tar.bz2
-ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.0
-ARG OLD_PG_SOURCE_FILE=postgresql-16.4.tar.bz2
-ARG OLD_PG_SOURCE_EXTRACT_FOLDER=postgresql-16.4
+ARG PG_SOURCE_FILE=postgresql-17.1.tar.bz2
+ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.1
+ARG OLD_PG_SOURCE_FILE=postgresql-16.5.tar.bz2
+ARG OLD_PG_SOURCE_EXTRACT_FOLDER=postgresql-16.5
 
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources
@@ -73,7 +73,7 @@ RUN make install
 
 #=======================================
 # Step2: final image
-FROM debian:12.7
+FROM debian:12.8
 
 # copy binary files from build image to current image
 COPY --from=build /pg /pg
