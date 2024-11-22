@@ -40,7 +40,7 @@ podman create --name sample_pg \
     -p 5432:5432 \
     -v /home/server/pgdata:/pgdata \
     -v /home/server/pgdata_wal:/pgdata_wal \
-    goodplayer/image_postgres:v17.1
+    goodplayer/image_postgres:v17.2
 
 # start container
 podman start sample_pg
@@ -61,7 +61,7 @@ New standby instance from primary
 podman run --name pg_standby_init \
     -v /home/server/demo1/pgdata:/pgdata \
     -v /home/server/demo1/pgdata_wal:/pgdata_wal \
-    goodplayer/image_postgres:v17.1 new_standby 17 10.11.0.5 5432 repusr repusr rep_slot_1
+    goodplayer/image_postgres:v17.2 new_standby 17 10.11.0.5 5432 repusr repusr rep_slot_1
 
 podman rm pg_standby_init
 
@@ -70,7 +70,7 @@ podman create --name sample_pg \
     -v /home/server/demo1/pgdata:/pgdata \
     -v /home/server/demo1/pgdata_wal:/pgdata_wal \
     -v /home/server/01-pgcustom.conf:/pgconf/01-pgcustom.conf \
-    goodplayer/image_postgres:v17.1
+    goodplayer/image_postgres:v17.2
 
 podman start sample_pg
 ```
@@ -94,15 +94,15 @@ touch /home/server/01-pgcustom.conf
 
 * TODO specify parameters, mount required files
 
-## 3. Build image(postgresql 17.1)
+## 3. Build image(postgresql 17.2)
 
-1. Download `postgresql-17.1.tar.bz2` file from postgresql website
+1. Download `postgresql-17.2.tar.bz2` file from postgresql website
     * Please refer to the Dockerfile for the actual files to download
 2. Run builder
-    * `podman build --no-cache --force-rm --squash-all -t goodplayer/image_postgres:v17.1 .`
+    * `podman build --no-cache --force-rm --squash-all -t goodplayer/image_postgres:v17.2 .`
 3. Push to registry
     * `podman login -u docker -p docker docker-push.registry.internal:5001`
-    * `podman push goodplayer/image_postgres:v17.1 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.1`
+    * `podman push goodplayer/image_postgres:v17.2 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.2`
 
 ### Require modification when upgrade to a new version
 

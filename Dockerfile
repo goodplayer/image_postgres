@@ -3,10 +3,10 @@
 FROM debian:12.8 AS build
 
 # Custom parameters
-ARG PG_SOURCE_FILE=postgresql-17.1.tar.bz2
-ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.1
-ARG OLD_PG_SOURCE_FILE=postgresql-16.5.tar.bz2
-ARG OLD_PG_SOURCE_EXTRACT_FOLDER=postgresql-16.5
+ARG PG_SOURCE_FILE=postgresql-17.2.tar.bz2
+ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.2
+ARG OLD_PG_SOURCE_FILE=postgresql-16.6.tar.bz2
+ARG OLD_PG_SOURCE_EXTRACT_FOLDER=postgresql-16.6
 
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources
