@@ -1,0 +1,16 @@
+{
+  "main": {
+    "name": "pg_cron",
+    "category": "util",
+    "version": "1.6.5",
+    "websites": [
+      "https://github.com/citusdata/pg_cron"
+    ]
+  },
+  "build": {
+    "script": "ext_pg_cron.sh"
+  },
+  "runtime": {
+    "library_names": ["pg_cron"]
+  }
+}

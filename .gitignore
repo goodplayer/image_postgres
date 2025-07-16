@@ -1,2 +1,5 @@
-# binary files
+# sourcecode files
 *.tar.bz2
+
+# projects
+/.idea

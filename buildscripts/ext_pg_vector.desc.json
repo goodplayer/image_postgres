@@ -1,0 +1,16 @@
+{
+  "main": {
+    "name": "pgvector",
+    "category": "vector",
+    "version": "0.8.0",
+    "websites": [
+      "https://github.com/pgvector/pgvector"
+    ]
+  },
+  "build": {
+    "script": "ext_pg_vector.sh"
+  },
+  "runtime": {
+    "library_names": []
+  }
+}

@@ -1,12 +1,13 @@
 #======================================
+ARG OS_VERSION=12.11
 # Step1: build
-FROM debian:12.8 AS build
+FROM debian:${OS_VERSION} AS build
 
 # Custom parameters
-ARG PG_SOURCE_FILE=postgresql-17.2.tar.bz2
-ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.2
-ARG OLD_PG_SOURCE_FILE=postgresql-16.6.tar.bz2
-ARG OLD_PG_SOURCE_EXTRACT_FOLDER=postgresql-16.6
+ARG PG_SOURCE_FILE=postgresql-17.5.tar.bz2
+ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.5
+ARG OLD_PG_SOURCE_FILE=postgresql-16.9.tar.bz2
+ARG OLD_PG_SOURCE_EXTRACT_FOLDER=postgresql-16.9
 
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources
@@ -22,7 +23,8 @@ RUN apt install -y build-essential \
                 libicu-dev liblz4-dev \
                 libzstd-dev libreadline-dev \
                 libxslt-dev libossp-uuid-dev zlib1g-dev \
-                libssl-dev
+                libssl-dev \
+                unzip
 
 # copy postgresql sourcecode
 COPY ${PG_SOURCE_FILE} /
@@ -71,9 +73,32 @@ WORKDIR /${OLD_PG_SOURCE_EXTRACT_FOLDER}/contrib
 RUN make -j
 RUN make install
 
+WORKDIR /
+# install go compiler for pg image tool
+RUN apt install golang-1.23 -y
+RUN ln -s /usr/lib/go-1.23/bin/go /usr/bin/go
+# copy pg image tool sources && configure go compile env
+COPY pg_image_tool /pg_image_tool
+RUN chmod +x /pg_image_tool/init_go_env.sh && /pg_image_tool/init_go_env.sh
+# compile pg image tool
+RUN cd /pg_image_tool && go get && go build && /pg_image_tool/pgimagetool
+# copy pg image tool to path
+RUN cp /pg_image_tool/pgimagetool /usr/bin/pgimagetool
+
+WORKDIR /
+# copy buildscripts and run
+COPY buildscripts /buildscripts
+RUN chmod +x /buildscripts/*.sh
+COPY buildscripts_old /buildscripts_old
+RUN chmod +x /buildscripts_old/*.sh
+WORKDIR /buildscripts
+RUN pgimagetool buildext /pg/bin/pg_config
+WORKDIR /buildscripts_old
+RUN pgimagetool buildext /pg_old/bin/pg_config
+
 #=======================================
 # Step2: final image
-FROM debian:12.8
+FROM debian:${OS_VERSION}
 
 # copy binary files from build image to current image
 COPY --from=build /pg /pg

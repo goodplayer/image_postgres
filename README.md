@@ -22,13 +22,27 @@
 * [ ] Support postgresql archive mode
 * [x] Support init standby database from primary database
     * run container with parameters: `new_standby 17 127.0.0.1 5432 repusr repusr replicaton_slot_name`
-    * Note: must keep configurations same between primary instance and standby instances, otherwise postgres may reject to start
+    * Note: must keep configurations same between primary instance and standby instances, otherwise postgres may reject
+      to start
+* [ ] Postgres image tool - support building images
+* [x] Postgres Extensions
+    * [x] vector: pgvector
+    * [x] util: pg_cron
 
 ##### Pending list
 
 * Add parameters in dockerfile and scripts to support multiple version or configuration when building images
-* Provide build image for extension build
-* Podman stop and systemd conflict: cannot safely shutdown in systemd startup
+* Decouple new instance & new standby with upgrade
+    * upgrade requires manual work, so will be moved separately
+    * upgrade solutions will be provided separately
+    * some extensions may not be supported any more, so leading to incompatible
+* Shared build scripts
+    * E.g. pg_duckdb and pg_mooncake both depend on duckdb
+* Library load configurator
+* Build script stages
+    * Build dependencies
+    * Runtime dependencies, packaged together with image
+    * User enablement, including shared libraries and create extension
 
 ## 2. Getting started
 
@@ -40,7 +54,7 @@ podman create --name sample_pg \
     -p 5432:5432 \
     -v /home/server/pgdata:/pgdata \
     -v /home/server/pgdata_wal:/pgdata_wal \
-    goodplayer/image_postgres:v17.2
+    goodplayer/image_postgres:v17.5
 
 # start container
 podman start sample_pg
@@ -61,7 +75,7 @@ New standby instance from primary
 podman run --name pg_standby_init \
     -v /home/server/demo1/pgdata:/pgdata \
     -v /home/server/demo1/pgdata_wal:/pgdata_wal \
-    goodplayer/image_postgres:v17.2 new_standby 17 10.11.0.5 5432 repusr repusr rep_slot_1
+    goodplayer/image_postgres:v17.5 new_standby 17 10.11.0.5 5432 repusr repusr rep_slot_1
 
 podman rm pg_standby_init
 
@@ -70,7 +84,7 @@ podman create --name sample_pg \
     -v /home/server/demo1/pgdata:/pgdata \
     -v /home/server/demo1/pgdata_wal:/pgdata_wal \
     -v /home/server/01-pgcustom.conf:/pgconf/01-pgcustom.conf \
-    goodplayer/image_postgres:v17.2
+    goodplayer/image_postgres:v17.5
 
 podman start sample_pg
 ```
@@ -92,17 +106,20 @@ touch /home/server/01-pgcustom.conf
 # -v /home/server/01-pgcustom.conf:/pgconf/01-pgcustom.conf
 ```
 
+Note 1: Configure `shared_preload_libraries` parameter to enable specific extensions. Use comma if multiple libraries
+required.
+
 * TODO specify parameters, mount required files
 
-## 3. Build image(postgresql 17.2)
+## 3. Build image(postgresql 17.5)
 
-1. Download `postgresql-17.2.tar.bz2` file from postgresql website
+1. Download `postgresql-17.5.tar.bz2` file from postgresql website
     * Please refer to the Dockerfile for the actual files to download
 2. Run builder
-    * `podman build --no-cache --force-rm --squash-all -t goodplayer/image_postgres:v17.2 .`
+    * `podman build --no-cache --force-rm --squash-all -t goodplayer/image_postgres:v17.5 .`
 3. Push to registry
     * `podman login -u docker -p docker docker-push.registry.internal:5001`
-    * `podman push goodplayer/image_postgres:v17.2 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.2`
+    * `podman push goodplayer/image_postgres:v17.5 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.5`
 
 ### Require modification when upgrade to a new version
 
@@ -134,3 +151,7 @@ The files will be the default configuration in the image.
 ## A. References
 
 * Offical postgres image: [https://github.com/docker-library/postgres](https://github.com/docker-library/postgres)
+* PGDG: [https://wiki.postgresql.org/wiki/Apt](https://wiki.postgresql.org/wiki/Apt)
+* PGNX: [https://pgxn.org/](https://pgxn.org/)
+* Pisty: [https://pigsty.cc/](https://pigsty.cc/)
+* pgxman: [https://pgxman.com/](https://pgxman.com/)
