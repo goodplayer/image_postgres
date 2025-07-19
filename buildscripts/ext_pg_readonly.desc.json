@@ -1,0 +1,16 @@
+{
+  "main": {
+    "name": "pg_readonly",
+    "category": "util",
+    "version": "git+e381248_20250719",
+    "websites": [
+      "https://github.com/pierreforstmann/pg_readonly"
+    ]
+  },
+  "build": {
+    "script": "ext_pg_readonly.sh"
+  },
+  "runtime": {
+    "library_names": ["pg_readonly"]
+  }
+}

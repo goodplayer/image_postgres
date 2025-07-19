@@ -1,0 +1,24 @@
+{
+  "main": {
+    "name": "citus",
+    "category": "distributed",
+    "version": "13.1.0",
+    "websites": [
+      "https://www.citusdata.com/",
+      "https://github.com/citusdata/citus",
+      "https://docs.citusdata.com/en/v13.0/"
+    ]
+  },
+  "build": {
+    "script": "ext_citus.sh",
+    "debian_deps": [
+      "libcurl4-openssl-dev"
+    ]
+  },
+  "runtime": {
+    "library_names": ["citus"],
+    "debian_deps": [
+      "libcurl4"
+    ]
+  }
+}

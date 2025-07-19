@@ -1,0 +1,33 @@
+{
+  "main": {
+    "name": "postgis",
+    "category": "gis",
+    "version": "3.5.3",
+    "websites": [
+      "https://postgis.net/",
+      "https://postgis.net/docs/manual-3.5/postgis_installation.html#PGInstall"
+    ]
+  },
+  "build": {
+    "script": "ext_postgis.sh",
+    "debian_deps": [
+      "libgeos-dev",
+      "libproj-dev",
+      "protobuf-c-compiler",
+      "libprotobuf-c-dev",
+      "libgdal-dev",
+      "libsfcgal-dev"
+    ]
+  },
+  "runtime": {
+    "library_names": [],
+    "debian_deps": [
+      "libgeos-c1v5",
+      "libgeos3.11.1",
+      "libproj25",
+      "libprotobuf-c1",
+      "libgdal32",
+      "libsfcgal1"
+    ]
+  }
+}

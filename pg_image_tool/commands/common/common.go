@@ -8,9 +8,11 @@ type BuildDescFile struct {
 		Websites []string `json:"websites"`
 	} `json:"main"`
 	Build struct {
-		Script string `json:"script"`
+		Script     string   `json:"script"`
+		DebianDeps []string `json:"debian_deps"`
 	} `json:"build"`
 	Runtime struct {
 		LibraryNames []string `json:"library_names"`
+		DebianDeps   []string `json:"debian_deps"`
 	} `json:"runtime"`
 }

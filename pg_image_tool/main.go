@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"pgimagetool/commands/buildext"
+	"pgimagetool/commands/installrtdeps"
 	"pgimagetool/commands/listext"
 )
 
@@ -14,6 +15,7 @@ func main() {
 		fmt.Println("Available commands:")
 		fmt.Println("  buildext - run build scripts")
 		fmt.Println("  listext  - list available build scripts")
+		fmt.Println("  install_runtime_deps  - install runtime dependencies")
 		os.Exit(0)
 	}
 	fmt.Println("run pgimagetool command:", os.Args[1])
@@ -30,6 +32,12 @@ func main() {
 	case "listext":
 		le := &listext.ListExtCommand{}
 		if err := le.Run(); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "install_runtime_deps":
+		ie := &installrtdeps.InstallRuntimeDeps{}
+		if err := ie.Run(); err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}

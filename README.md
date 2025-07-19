@@ -1,5 +1,12 @@
 # Postgres Container
 
+This is the containerized Postgres image source code.
+
+The purpose of the repo is
+
+1. Provide full-featured and out-of-box postgres container image
+2. Make it easy to customize your container
+
 ## 1. Features
 
 * [x] Postgres container with contrib extensions
@@ -16,7 +23,9 @@
     * `Note`: please ensure the uid and gid when mounting a volumn
     * Current `UID`: 30000
     * Current `GID`: 30000
-* [ ] Supporting customize extension
+* [x] Support install dependencies for extensions
+* [x] Supporting customize extension
+    * Customize extensions by modifying .desc.json and .sh
 * [ ] Supporting customize initdb parameters
 * [ ] Supporting ssl configuration & custom CA
 * [ ] Support postgresql archive mode
@@ -24,24 +33,27 @@
     * run container with parameters: `new_standby 17 127.0.0.1 5432 repusr repusr replicaton_slot_name`
     * Note: must keep configurations same between primary instance and standby instances, otherwise postgres may reject
       to start
-* [ ] Postgres image tool - support building images
+* [x] Postgres image tool - support building images
+    * Support build script
+    * Support dependency installation in build and runtime stages
 * [x] Postgres Extensions
-    * [x] vector: pgvector
+    * [x] distributed: citus
+    * [x] gis: postgis
     * [x] util: pg_cron
+    * [x] util: pg_readonly
+    * [x] vector: pgvector
 
 ##### Pending list
 
-* Add parameters in dockerfile and scripts to support multiple version or configuration when building images
 * Decouple new instance & new standby with upgrade
     * upgrade requires manual work, so will be moved separately
     * upgrade solutions will be provided separately
     * some extensions may not be supported any more, so leading to incompatible
+    * document best practise of major version upgrade
 * Shared build scripts
     * E.g. pg_duckdb and pg_mooncake both depend on duckdb
 * Library load configurator
 * Build script stages
-    * Build dependencies
-    * Runtime dependencies, packaged together with image
     * User enablement, including shared libraries and create extension
 
 ## 2. Getting started

@@ -8,7 +8,7 @@ How to add a new extension
 
 ## Extension description preparation
 
-1. Metadata
+1. Metadata (*.desc.json files)
 2. How to upgrade
 
 ## Notes for build scripts

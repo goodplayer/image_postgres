@@ -92,17 +92,20 @@ RUN chmod +x /buildscripts/*.sh
 COPY buildscripts_old /buildscripts_old
 RUN chmod +x /buildscripts_old/*.sh
 WORKDIR /buildscripts
-RUN pgimagetool buildext /pg/bin/pg_config
+RUN pgimagetool buildext /pg/bin
 WORKDIR /buildscripts_old
-RUN pgimagetool buildext /pg_old/bin/pg_config
+RUN pgimagetool buildext /pg_old/bin
+WORKDIR /
 
 #=======================================
 # Step2: final image
 FROM debian:${OS_VERSION}
+WORKDIR /
 
 # copy binary files from build image to current image
 COPY --from=build /pg /pg
 COPY --from=build /pg_old /pg_old
+COPY --from=build /usr/bin/pgimagetool /usr/bin/pgimagetool
 
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources
@@ -112,6 +115,15 @@ RUN apt update && apt upgrade -y
 
 # install apt packages
 RUN apt install -y libxml2 libicu72 libssl3 libreadline8 libxslt1.1 libllvm14 libossp-uuid16 sudo
+
+# install plugin dependencies
+#FIXME note: deps of exts from pg_old are not installed
+RUN mkdir /buildscripts
+COPY --from=build /buildscripts /buildscripts
+WORKDIR /buildscripts
+RUN pgimagetool install_runtime_deps
+RUN rm -rf /buildscripts
+WORKDIR /
 
 # create user
 RUN groupadd -g 30000 admin
