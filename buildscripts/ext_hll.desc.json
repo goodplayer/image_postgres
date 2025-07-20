@@ -1,0 +1,18 @@
+{
+  "main": {
+    "name": "hll",
+    "category": "datatype",
+    "version": "2.18",
+    "websites": [
+      "https://github.com/citusdata/postgresql-hll"
+    ]
+  },
+  "build": {
+    "script": "ext_hll.sh",
+    "debian_deps": null
+  },
+  "runtime": {
+    "library_names": null,
+    "debian_deps": null
+  }
+}

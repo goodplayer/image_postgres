@@ -38,13 +38,16 @@ The purpose of the repo is
     * Support dependency installation in build and runtime stages
     * [ ] Manage and list `create extension` plugins
 * [x] Postgres Extensions
+    * [x] datatype: hll
     * [x] distributed: citus
     * [x] gis: postgis
     * [x] timeseries: timescaledb
-    * [x] util: pgaudit
     * [x] util: pg_cron
+    * [x] util: pg_hint_plan
     * [x] util: pg_partman
     * [x] util: pg_readonly
+    * [x] util: pgaudit
+    * [x] util: pgmq
     * [x] vector: pgvector
 
 ##### Pending list
@@ -60,13 +63,17 @@ The purpose of the repo is
 * Build script stages
     * User enablement, including shared libraries and create extension
 * Evaluate performance impact of extensions on each stage of loading
+* Support http and https proxy when building
 * Extensions to add
     * https://github.com/omniti-labs/pg_jobmon
         * Optional required by pg_partman
-    * https://github.com/pgmq/pgmq
-    * https://github.com/duckdb/pg_duckdb
+    * https://github.com/duckdb/pg_duckdb - OLAP
     * https://github.com/RafiaSabih/pg_auth_mon
-    * https://github.com/tensorchord/VectorChord
+    * https://github.com/tensorchord/VectorChord - vector, WIP
+    * https://github.com/paradedb/paradedb/tree/dev/pg_search
+    * https://github.com/apache/age - no port to 17, graph
+    * https://git.postgresql.org/gitweb/?p=pgfincore.git;a=summary
+    * https://github.com/EnterpriseDB/repmgr
 
 ## 2. Getting started
 
@@ -139,11 +146,17 @@ required.
 
 1. Download `postgresql-17.5.tar.bz2` file from postgresql website
     * Please refer to the Dockerfile for the actual files to download
+    * Additional files are required as well, refer to the below
 2. Run builder
     * `podman build --no-cache --force-rm --squash-all -t goodplayer/image_postgres:v17.5 .`
 3. Push to registry
     * `podman login -u docker -p docker docker-push.registry.internal:5001`
     * `podman push goodplayer/image_postgres:v17.5 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.5`
+
+Additional files to downloads
+
+* files described in .sh files in `buildscripts` folder
+* files described in .sh files in `buildtool` folder
 
 ### Require modification when upgrade to a new version
 

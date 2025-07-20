@@ -22,7 +22,7 @@ RUN apt install -y build-essential \
                 libzstd-dev libreadline-dev \
                 libxslt-dev libossp-uuid-dev zlib1g-dev \
                 libssl-dev \
-                unzip
+                unzip wget curl
 
 # copy postgresql sourcecode
 COPY ${PG_SOURCE_FILE} /
@@ -46,6 +46,13 @@ RUN make install
 WORKDIR /${PG_SOURCE_EXTRACT_FOLDER}/contrib
 RUN make -j
 RUN make install
+
+# install build tool
+WORKDIR /
+COPY buildtool /buildtool
+RUN chmod +x /buildtool/prepare.sh
+WORKDIR /buildtool
+RUN ./prepare.sh
 
 WORKDIR /
 # install go compiler for pg image tool
@@ -86,7 +93,6 @@ RUN apt update && apt upgrade -y
 RUN apt install -y libxml2 libicu72 libssl3 libreadline8 libxslt1.1 libllvm14 libossp-uuid16 sudo
 
 # install plugin dependencies
-#FIXME note: deps of exts from pg_old are not installed
 RUN mkdir /buildscripts
 COPY --from=build /buildscripts /buildscripts
 WORKDIR /buildscripts

@@ -1,0 +1,21 @@
+{
+  "main": {
+    "name": "pg_hint_plan",
+    "category": "util",
+    "version": "1.7.1",
+    "websites": [
+      "https://github.com/ossc-db/pg_hint_plan/tree/PG17",
+      "https://github.com/ossc-db/pg_hint_plan"
+    ]
+  },
+  "build": {
+    "script": "ext_pg_hint_plan.sh",
+    "debian_deps": null
+  },
+  "runtime": {
+    "library_names": [
+      "pg_hint_plan"
+    ],
+    "debian_deps": null
+  }
+}

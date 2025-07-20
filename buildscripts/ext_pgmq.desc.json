@@ -1,0 +1,19 @@
+{
+  "main": {
+    "name": "pgmq",
+    "category": "util",
+    "version": "1.6.1",
+    "websites": [
+      "https://github.com/pgmq/pgmq",
+      "https://pgmq.github.io/pgmq/"
+    ]
+  },
+  "build": {
+    "script": "ext_pgmq.sh",
+    "debian_deps": null
+  },
+  "runtime": {
+    "library_names": null,
+    "debian_deps": null
+  }
+}
