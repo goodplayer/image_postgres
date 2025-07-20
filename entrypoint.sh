@@ -1,6 +1,6 @@
-#!/bin/bash -xv
+#!/bin/bash
 
-##TODO remove debug flags above
+##to support bash script debug, add -xv parameter above
 
 set -e
 
@@ -49,9 +49,9 @@ start_database() {
 }
 
 check_and_do_upgrade() {
-    #FIXME Note that here the comparison between two versions is based on literal value rather than number value. If may be incorrect in some cases.
-    MIN="16"
-    MAX="17"
+    #Since upgrade script is not supported any more, here both max and min version are set to default version
+    MIN=$1
+    MAX=$1
 
     if [[ $MAX < `cat /pgdata/current/PG_VERSION` ]]; then
         echo "Newer version data found. Cannot upgrade and startup the instance. Found version:" `cat /pgdata/current/PG_VERSION`
@@ -63,12 +63,9 @@ check_and_do_upgrade() {
         echo "Expected postgres data version. Continue startup."
     else
         # between two versions, need upgrade
-        init_database $1
-        basic_configure $1
-        cd /tmp
-        sudo -u admin /pg/bin/pg_upgrade --old-datadir=/pgdata/current --new-datadir=/pgdata/$1 --old-bindir=/pg_old/bin --new-bindir=/pg/bin --check --link
-        cd -
-        force_link_current_database $1
+        echo "As mentioned in the README.md, the upgrade between two supported versions are not supported any more."
+        echo "Please use upgrade tools or follow the upgrade methods"
+        exit 1
     fi
 }
 

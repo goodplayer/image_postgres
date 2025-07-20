@@ -6,8 +6,6 @@ FROM debian:${OS_VERSION} AS build
 # Custom parameters
 ARG PG_SOURCE_FILE=postgresql-17.5.tar.bz2
 ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.5
-ARG OLD_PG_SOURCE_FILE=postgresql-16.9.tar.bz2
-ARG OLD_PG_SOURCE_EXTRACT_FOLDER=postgresql-16.9
 
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources
@@ -50,30 +48,6 @@ RUN make -j
 RUN make install
 
 WORKDIR /
-# copy old postgresql sourcecode
-COPY ${OLD_PG_SOURCE_FILE} /
-# decompress sourcecode package
-RUN tar xf ${OLD_PG_SOURCE_FILE} -C /
-# compile postgresql
-WORKDIR /${OLD_PG_SOURCE_EXTRACT_FOLDER}
-RUN ./configure --prefix=/pg_old \
-    --with-blocksize=16 \
-    --with-segsize=4 \
-    --with-wal-blocksize=16 \
-    --with-llvm \
-    --with-uuid=ossp \
-    --with-libxml \
-    --with-libxslt \
-    --with-lz4 \
-    --with-zstd \
-    --with-ssl=openssl
-RUN make -j
-RUN make install
-WORKDIR /${OLD_PG_SOURCE_EXTRACT_FOLDER}/contrib
-RUN make -j
-RUN make install
-
-WORKDIR /
 # install go compiler for pg image tool
 RUN apt install golang-1.23 -y
 RUN ln -s /usr/lib/go-1.23/bin/go /usr/bin/go
@@ -89,12 +63,8 @@ WORKDIR /
 # copy buildscripts and run
 COPY buildscripts /buildscripts
 RUN chmod +x /buildscripts/*.sh
-COPY buildscripts_old /buildscripts_old
-RUN chmod +x /buildscripts_old/*.sh
 WORKDIR /buildscripts
 RUN pgimagetool buildext /pg/bin
-WORKDIR /buildscripts_old
-RUN pgimagetool buildext /pg_old/bin
 WORKDIR /
 
 #=======================================
@@ -104,7 +74,6 @@ WORKDIR /
 
 # copy binary files from build image to current image
 COPY --from=build /pg /pg
-COPY --from=build /pg_old /pg_old
 COPY --from=build /usr/bin/pgimagetool /usr/bin/pgimagetool
 
 # setup debian apt repository

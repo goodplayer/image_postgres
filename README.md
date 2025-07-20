@@ -96,12 +96,12 @@ podman rm sample_pg
 New standby instance from primary
 
 ```shell
-podman run --name pg_standby_init \
+podman run --rm --name pg_standby_init \
     -v /home/server/demo1/pgdata:/pgdata \
     -v /home/server/demo1/pgdata_wal:/pgdata_wal \
     goodplayer/image_postgres:v17.5 new_standby 17 10.11.0.5 5432 repusr repusr rep_slot_1
 
-podman rm pg_standby_init
+#podman rm pg_standby_init
 
 podman create --name sample_pg \
     -p 5432:5432 \
@@ -171,6 +171,47 @@ The files will be the default configuration in the image.
 * Restart on an old instance of unsupported versions(instance version < minimum supported versions)
 * Restart on an new instance of unsupported versions(instance version > maximum supported versions)
 * Stop the instance gracefully
+
+## 4. Upgrade Guide
+
+`Note: This image does not contain out-of-box upgrade scripts. For the details, please refer to the below.`
+
+### 4.1. Postgres Upgrade Methods
+
+#### 4.1.1. Backup - Restore
+
+1. Stop the postgres instance of the old version
+2. Backup the database
+3. Create a new postgres instance of the new version
+4. Restore the database
+5. Start the new postgres instance
+
+The drawback of this method:
+
+1. Take long time to back up and restore. This may cause long downtime.
+
+#### 4.1.2. In-place
+
+1. Stop the postgres instance of the old version
+2. Invoke pg_upgrade for in-place upgrade
+3. Start the postgres instance with the new version
+
+The drawback of this method:
+
+1. Even though it takes less time than Backup-Restore method, it still needs long downtime.
+
+#### 4.1.3. New Instance - Logical Replication (Suggested)
+
+1. Start a new postgres instance of the new version and run as a logical standby server from the primary.
+    * This may need a full backup from the primary ahead.
+2. Wait for the new standby server catching up with the primary
+3. Switch the primary to readonly mode and wait for the standby server has all the updates from the primary.
+4. Stop the old primary and promote the standby to the new primary.
+5. Switch clients to the new primary.
+
+The drawback of this method:
+
+1. No downtime but the switching plan is complex.
 
 ## A. References
 
