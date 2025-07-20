@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt install sudo
+apt install -y sudo
 groupadd -g 30000 admin
 useradd -u 30000 -m -g admin admin
 usermod -a -G admin admin

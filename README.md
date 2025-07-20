@@ -40,6 +40,7 @@ The purpose of the repo is
 * [x] Postgres Extensions
     * [x] datatype: hll
     * [x] distributed: citus
+    * [x] fts: pg_search
     * [x] gis: postgis
     * [x] timeseries: timescaledb
     * [x] util: pg_cron
@@ -49,6 +50,7 @@ The purpose of the repo is
     * [x] util: pgaudit
     * [x] util: pgmq
     * [x] vector: pgvector
+    * [x] vector: VectorChord
 
 ##### Pending list
 
@@ -63,14 +65,11 @@ The purpose of the repo is
 * Build script stages
     * User enablement, including shared libraries and create extension
 * Evaluate performance impact of extensions on each stage of loading
-* Support http and https proxy when building
 * Extensions to add
     * https://github.com/omniti-labs/pg_jobmon
         * Optional required by pg_partman
     * https://github.com/duckdb/pg_duckdb - OLAP
     * https://github.com/RafiaSabih/pg_auth_mon
-    * https://github.com/tensorchord/VectorChord - vector, WIP
-    * https://github.com/paradedb/paradedb/tree/dev/pg_search
     * https://github.com/apache/age - no port to 17, graph
     * https://git.postgresql.org/gitweb/?p=pgfincore.git;a=summary
     * https://github.com/EnterpriseDB/repmgr

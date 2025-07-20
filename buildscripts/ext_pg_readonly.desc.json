@@ -2,7 +2,7 @@
   "main": {
     "name": "pg_readonly",
     "category": "util",
-    "version": "git+e381248_20250719",
+    "version": "git+d1f20b0_20250720",
     "websites": [
       "https://github.com/pierreforstmann/pg_readonly"
     ]

@@ -1,0 +1,21 @@
+{
+  "main": {
+    "name": "vectorchord",
+    "category": "vector",
+    "version": "0.4.3",
+    "websites": [
+      "https://github.com/tensorchord/VectorChord",
+      "https://docs.vectorchord.ai/vectorchord/getting-started/overview.html"
+    ]
+  },
+  "build": {
+    "script": "ext_vectorchord.sh",
+    "debian_deps": null
+  },
+  "runtime": {
+    "library_names": [
+      "vchord"
+    ],
+    "debian_deps": null
+  }
+}

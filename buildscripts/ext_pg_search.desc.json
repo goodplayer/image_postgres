@@ -1,0 +1,23 @@
+{
+  "main": {
+    "name": "pg_search",
+    "category": "fts",
+    "version": "0.17.0",
+    "websites": [
+      "https://github.com/paradedb/paradedb/tree/main/pg_search",
+      "https://github.com/paradedb/paradedb",
+      "https://www.paradedb.com/",
+      "https://docs.paradedb.com/documentation/getting-started/quickstart"
+    ]
+  },
+  "build": {
+    "script": "ext_pg_search.sh",
+    "debian_deps": null
+  },
+  "runtime": {
+    "library_names": [
+      "pg_search"
+    ],
+    "debian_deps": null
+  }
+}

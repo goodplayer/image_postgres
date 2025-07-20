@@ -22,12 +22,12 @@
   "runtime": {
     "library_names": [],
     "debian_deps": [
-      "libgeos-c1v5",
-      "libgeos3.11.1",
+      "libgeos-c1t64",
+      "libgeos3.13.1",
       "libproj25",
       "libprotobuf-c1",
-      "libgdal32",
-      "libsfcgal1"
+      "libgdal36",
+      "libsfcgal2"
     ]
   }
 }

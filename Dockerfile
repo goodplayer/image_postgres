@@ -1,5 +1,5 @@
 #======================================
-ARG OS_VERSION=12.11
+ARG OS_VERSION=trixie-20250630
 # Step1: build
 FROM debian:${OS_VERSION} AS build
 
@@ -20,7 +20,7 @@ RUN apt install -y build-essential \
                 llvm clang pkgconf bison flex \
                 libicu-dev liblz4-dev \
                 libzstd-dev libreadline-dev \
-                libxslt-dev libossp-uuid-dev zlib1g-dev \
+                libxslt1-dev libossp-uuid-dev zlib1g-dev \
                 libssl-dev \
                 unzip wget curl
 
@@ -56,8 +56,8 @@ RUN ./prepare.sh
 
 WORKDIR /
 # install go compiler for pg image tool
-RUN apt install golang-1.23 -y
-RUN ln -s /usr/lib/go-1.23/bin/go /usr/bin/go
+RUN apt install golang -y
+#RUN ln -s /usr/lib/go-1.24/bin/go /usr/bin/go
 # copy pg image tool sources && configure go compile env
 COPY pg_image_tool /pg_image_tool
 RUN chmod +x /pg_image_tool/init_go_env.sh && /pg_image_tool/init_go_env.sh
@@ -90,7 +90,7 @@ COPY debian.sources /etc/apt/sources.list.d/debian.sources
 RUN apt update && apt upgrade -y
 
 # install apt packages
-RUN apt install -y libxml2 libicu72 libssl3 libreadline8 libxslt1.1 libllvm14 libossp-uuid16 sudo
+RUN apt install -y libxml2 libicu76 libssl3 libreadline8 libxslt1.1 libllvm19 libossp-uuid16 sudo
 
 # install plugin dependencies
 RUN mkdir /buildscripts
