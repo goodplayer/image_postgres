@@ -36,10 +36,14 @@ The purpose of the repo is
 * [x] Postgres image tool - support building images
     * Support build script
     * Support dependency installation in build and runtime stages
+    * [ ] Manage and list `create extension` plugins
 * [x] Postgres Extensions
     * [x] distributed: citus
     * [x] gis: postgis
+    * [x] timeseries: timescaledb
+    * [x] util: pgaudit
     * [x] util: pg_cron
+    * [x] util: pg_partman
     * [x] util: pg_readonly
     * [x] vector: pgvector
 
@@ -55,6 +59,14 @@ The purpose of the repo is
 * Library load configurator
 * Build script stages
     * User enablement, including shared libraries and create extension
+* Evaluate performance impact of extensions on each stage of loading
+* Extensions to add
+    * https://github.com/omniti-labs/pg_jobmon
+        * Optional required by pg_partman
+    * https://github.com/pgmq/pgmq
+    * https://github.com/duckdb/pg_duckdb
+    * https://github.com/RafiaSabih/pg_auth_mon
+    * https://github.com/tensorchord/VectorChord
 
 ## 2. Getting started
 
@@ -164,6 +176,7 @@ The files will be the default configuration in the image.
 
 * Offical postgres image: [https://github.com/docker-library/postgres](https://github.com/docker-library/postgres)
 * PGDG: [https://wiki.postgresql.org/wiki/Apt](https://wiki.postgresql.org/wiki/Apt)
+    * https://www.postgresql.org/download/products/6-postgresql-extensions/
 * PGNX: [https://pgxn.org/](https://pgxn.org/)
 * Pisty: [https://pigsty.cc/](https://pigsty.cc/)
 * pgxman: [https://pgxman.com/](https://pgxman.com/)

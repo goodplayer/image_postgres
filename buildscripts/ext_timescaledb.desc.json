@@ -1,0 +1,22 @@
+{
+  "main": {
+    "name": "timescaledb",
+    "category": "timeseries",
+    "version": "2.21.0",
+    "websites": [
+      "https://www.timescale.com/",
+      "https://github.com/timescale/timescaledb",
+      "https://docs.tigerdata.com/self-hosted/latest/install/installation-source/"
+    ]
+  },
+  "build": {
+    "script": "ext_timescaledb.sh",
+    "debian_deps": [
+      "cmake"
+    ]
+  },
+  "runtime": {
+    "library_names": ["timescaledb"],
+    "debian_deps": []
+  }
+}

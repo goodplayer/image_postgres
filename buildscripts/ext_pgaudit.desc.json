@@ -1,0 +1,18 @@
+{
+  "main": {
+    "name": "pgaudit",
+    "category": "util",
+    "version": "17.1",
+    "websites": [
+      "https://github.com/pgaudit/pgaudit"
+    ]
+  },
+  "build": {
+    "script": "ext_pgaudit.sh"
+  },
+  "runtime": {
+    "library_names": [
+      "pgaudit"
+    ]
+  }
+}

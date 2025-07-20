@@ -29,7 +29,7 @@ func (b *BuildExt) Run() error {
 		if desc, err := readMetaFile(v); err != nil {
 			return err
 		} else {
-			fmt.Println("building extension:", desc.Main.Name)
+			fmt.Println("========>>>> building extension:", desc.Main.Name)
 			// run install deps
 			if len(desc.Build.DebianDeps) > 0 {
 				var args = []string{"install", "-y"}

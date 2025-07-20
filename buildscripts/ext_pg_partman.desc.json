@@ -1,0 +1,18 @@
+{
+  "main": {
+    "name": "pg_partman",
+    "category": "util",
+    "version": "5.2.4",
+    "websites": [
+      "https://github.com/pgpartman/pg_partman/"
+    ]
+  },
+  "build": {
+    "script": "ext_pg_partman.sh"
+  },
+  "runtime": {
+    "library_names": [
+      "pg_partman_bgw"
+    ]
+  }
+}
