@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"pgimagetool/commands/buildext"
+	"pgimagetool/commands/generate"
 	"pgimagetool/commands/installrtdeps"
 	"pgimagetool/commands/listext"
 	"pgimagetool/commands/newext"
@@ -18,6 +19,8 @@ func main() {
 		fmt.Println("  listext               - list available build scripts")
 		fmt.Println("  install_runtime_deps  - install runtime dependencies")
 		fmt.Println("  new                   - interactive creation of new extension description files")
+		fmt.Println("  gen_create_extension  - generate create extension clauses")
+		fmt.Println("  gen_shared_preload    - generate shared preload libraries")
 		os.Exit(0)
 	}
 	fmt.Println("run pgimagetool command:", os.Args[1])
@@ -46,6 +49,18 @@ func main() {
 	case "new":
 		ne := &newext.NewExtCommand{}
 		if err := ne.Run(); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "gen_create_extension":
+		ge := &generate.GenerateCreateExtensionCommand{}
+		if err := ge.Run(); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "gen_shared_preload":
+		ge := &generate.GenerateSharedPreloadLibrariesCommand{}
+		if err := ge.Run(); err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}

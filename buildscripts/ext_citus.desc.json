@@ -19,6 +19,9 @@
     "library_names": ["citus"],
     "debian_deps": [
       "libcurl4"
+    ],
+    "extension_names": [
+      "citus"
     ]
   }
 }

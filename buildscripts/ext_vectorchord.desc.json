@@ -16,6 +16,9 @@
     "library_names": [
       "vchord"
     ],
-    "debian_deps": null
+    "debian_deps": null,
+    "extension_names": [
+      "vchord"
+    ]
   }
 }

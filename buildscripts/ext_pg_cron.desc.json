@@ -11,6 +11,9 @@
     "script": "ext_pg_cron.sh"
   },
   "runtime": {
-    "library_names": ["pg_cron"]
+    "library_names": ["pg_cron"],
+    "extension_names": [
+      "pg_cron"
+    ]
   }
 }

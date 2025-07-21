@@ -13,6 +13,9 @@
   "runtime": {
     "library_names": [
       "pgaudit"
+    ],
+    "extension_names": [
+      "pgaudit"
     ]
   }
 }

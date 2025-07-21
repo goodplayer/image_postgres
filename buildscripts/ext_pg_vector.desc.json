@@ -11,6 +11,9 @@
     "script": "ext_pg_vector.sh"
   },
   "runtime": {
-    "library_names": []
+    "library_names": [],
+    "extension_names": [
+      "vector"
+    ]
   }
 }

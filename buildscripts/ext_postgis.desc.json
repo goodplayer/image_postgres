@@ -28,6 +28,16 @@
       "libprotobuf-c1",
       "libgdal36",
       "libsfcgal2"
+    ],
+    "extension_names": [
+      "postgis",
+      "postgis_raster",
+      "postgis_sfcgal",
+      "fuzzystrmatch",
+      "address_standardizer",
+      "address_standardizer_data_us",
+      "postgis_tiger_geocoder",
+      "postgis_topology"
     ]
   }
 }

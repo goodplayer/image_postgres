@@ -36,7 +36,8 @@ The purpose of the repo is
 * [x] Postgres image tool - support building images
     * Support build script
     * Support dependency installation in build and runtime stages
-    * [ ] Manage and list `create extension` plugins
+    * Generate `create extension` clauses for plugins
+    * Generate `shared_preload_libraries` clauses for plugins
 * [x] Postgres Extensions
     * [x] datatype: hll
     * [x] distributed: citus
@@ -73,6 +74,8 @@ The purpose of the repo is
     * https://github.com/apache/age - no port to 17, graph
     * https://git.postgresql.org/gitweb/?p=pgfincore.git;a=summary
     * https://github.com/EnterpriseDB/repmgr
+* Add .desc.json management in pgimagetool
+    * Add to entrypoint.sh with several commands from pgimagetool
 
 ## 2. Getting started
 

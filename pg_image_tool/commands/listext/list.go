@@ -25,8 +25,9 @@ func (l *ListExtCommand) Run() error {
 		if desc, err := readMetaFile(v); err != nil {
 			return err
 		} else {
-			fmt.Printf("name:%s category:%s version:%s buildscript:%s load:%s\n",
-				desc.Main.Name, desc.Main.Category, desc.Main.Version, desc.Build.Script, strings.Join(desc.Runtime.LibraryNames, ","))
+			fmt.Printf("name:%s category:%s version:%s buildscript:%s load:%s extnames:%s\n",
+				desc.Main.Name, desc.Main.Category, desc.Main.Version, desc.Build.Script, strings.Join(desc.Runtime.LibraryNames, ","),
+				strings.Join(desc.Runtime.ExtensionNames, ","))
 		}
 	}
 

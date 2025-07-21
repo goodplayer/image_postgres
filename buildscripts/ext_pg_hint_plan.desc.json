@@ -16,6 +16,9 @@
     "library_names": [
       "pg_hint_plan"
     ],
-    "debian_deps": null
+    "debian_deps": null,
+    "extension_names": [
+      "pg_hint_plan"
+    ]
   }
 }

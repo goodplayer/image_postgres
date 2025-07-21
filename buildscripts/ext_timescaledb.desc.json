@@ -16,7 +16,12 @@
     ]
   },
   "runtime": {
-    "library_names": ["timescaledb"],
-    "debian_deps": []
+    "library_names": [
+      "timescaledb"
+    ],
+    "debian_deps": [],
+    "extension_names": [
+      "timescaledb"
+    ]
   }
 }

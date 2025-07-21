@@ -143,6 +143,27 @@ func (n *NewExtCommand) Run() error {
 		ext.Runtime.DebianDeps = finalDeps
 		break
 	}
+	// read extension names
+	for {
+		fmt.Println("Extension names:")
+		var extNamesStr string
+		in := bufio.NewReader(os.Stdin)
+		line, err := in.ReadString('\n')
+		if err != nil {
+			return err
+		}
+		extNamesStr = strings.TrimSpace(line)
+		extNames := strings.Split(extNamesStr, " ")
+		var finalExtNames []string
+		for _, extName := range extNames {
+			extName = strings.TrimSpace(extName)
+			if len(extName) > 0 {
+				finalExtNames = append(finalExtNames, extName)
+			}
+		}
+		ext.Runtime.ExtensionNames = finalExtNames
+		break
+	}
 
 	var descFileName = "ext_" + ext.Main.Name + ".desc.json"
 	var shellScriptFileName = "ext_" + ext.Main.Name + ".sh"

@@ -13,6 +13,9 @@
   "runtime": {
     "library_names": [
       "pg_partman_bgw"
+    ],
+    "extension_names": [
+      "pg_partman"
     ]
   }
 }

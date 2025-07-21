@@ -12,7 +12,8 @@ type BuildDescFile struct {
 		DebianDeps []string `json:"debian_deps"`
 	} `json:"build"`
 	Runtime struct {
-		LibraryNames []string `json:"library_names"`
-		DebianDeps   []string `json:"debian_deps"`
+		LibraryNames   []string `json:"library_names"`
+		DebianDeps     []string `json:"debian_deps"`
+		ExtensionNames []string `json:"extension_names"`
 	} `json:"runtime"`
 }

@@ -11,6 +11,11 @@
     "script": "ext_pg_readonly.sh"
   },
   "runtime": {
-    "library_names": ["pg_readonly"]
+    "library_names": [
+      "pg_readonly"
+    ],
+    "extension_names": [
+      "pg_readonly"
+    ]
   }
 }

@@ -13,6 +13,9 @@
   },
   "runtime": {
     "library_names": null,
-    "debian_deps": null
+    "debian_deps": null,
+    "extension_names": [
+      "hll"
+    ]
   }
 }

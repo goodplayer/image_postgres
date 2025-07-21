@@ -69,6 +69,7 @@ RUN cp /pg_image_tool/pgimagetool /usr/bin/pgimagetool
 WORKDIR /
 # copy buildscripts and run
 COPY buildscripts /buildscripts
+RUN mkdir /extensions && cp /buildscripts/*.desc.json /extensions
 RUN chmod +x /buildscripts/*.sh
 WORKDIR /buildscripts
 RUN pgimagetool buildext /pg/bin
@@ -82,6 +83,7 @@ WORKDIR /
 # copy binary files from build image to current image
 COPY --from=build /pg /pg
 COPY --from=build /usr/bin/pgimagetool /usr/bin/pgimagetool
+COPY --from=build /extensions /extensions
 
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources
