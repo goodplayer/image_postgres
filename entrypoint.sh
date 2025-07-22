@@ -103,6 +103,10 @@ if [ $1 == "postgres" ]; then
     start_database $2
 elif [ $1 == "new_standby" ]; then
     init_standby $2 $3 $4 $5 $6 $7
+elif [ $1 == "showlibrary" ]; then
+    cd /extensions && pgimagetool gen_shared_preload
+elif [ $1 == "showcreateextension" ]; then
+    cd /extensions && pgimagetool gen_create_extension
 else
     $@
 fi

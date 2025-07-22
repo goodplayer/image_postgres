@@ -1,5 +1,25 @@
 # Postgres Container
 
+<!-- TOC -->
+* [Postgres Container](#postgres-container)
+  * [1. Features](#1-features)
+        * [Pending list](#pending-list)
+  * [2. Getting started](#2-getting-started)
+  * [3. Build image(postgresql 17.5)](#3-build-imagepostgresql-175)
+    * [Require modification when upgrade to a new version](#require-modification-when-upgrade-to-a-new-version)
+    * [Customization](#customization)
+      * [1. Customize debian repository](#1-customize-debian-repository)
+      * [2. Customize postgresql configure files](#2-customize-postgresql-configure-files)
+    * [Test scenarios](#test-scenarios)
+  * [4. Upgrade Guide](#4-upgrade-guide)
+    * [4.1. Postgres Upgrade Methods](#41-postgres-upgrade-methods)
+      * [4.1.1. Backup - Restore](#411-backup---restore)
+      * [4.1.2. In-place](#412-in-place)
+      * [4.1.3. New Instance - Logical Replication (Suggested)](#413-new-instance---logical-replication-suggested)
+  * [A. References](#a-references)
+  * [B. Example of use](#b-example-of-use)
+<!-- TOC -->
+
 This is the containerized Postgres image source code.
 
 The purpose of the repo is
@@ -52,6 +72,8 @@ The purpose of the repo is
     * [x] util: pgmq
     * [x] vector: pgvector
     * [x] vector: VectorChord
+* [x] Postgres removed extensions:
+    * (None)
 
 ##### Pending list
 
@@ -63,8 +85,6 @@ The purpose of the repo is
 * Shared build scripts
     * E.g. pg_duckdb and pg_mooncake both depend on duckdb
 * Library load configurator
-* Build script stages
-    * User enablement, including shared libraries and create extension
 * Evaluate performance impact of extensions on each stage of loading
 * Extensions to add
     * https://github.com/omniti-labs/pg_jobmon
@@ -74,8 +94,39 @@ The purpose of the repo is
     * https://github.com/apache/age - no port to 17, graph
     * https://git.postgresql.org/gitweb/?p=pgfincore.git;a=summary
     * https://github.com/EnterpriseDB/repmgr
-* Add .desc.json management in pgimagetool
-    * Add to entrypoint.sh with several commands from pgimagetool
+    * https://github.com/HypoPG/hypopg
+    * https://github.com/mhagander/bgw_replstatus
+    * https://github.com/tvondra/count_distinct
+    * https://github.com/sraoss/pg_ivm
+    * https://github.com/powa-team/pg_stat_kcache
+    * https://github.com/2ndQuadrant/pglogical
+    * https://github.com/pgbackrest/pgbackrest
+    * https://github.com/HexaCluster/credcheck
+    * https://github.com/lacanoid/pgddl
+    * https://github.com/dalibo/emaj
+    * https://github.com/df7cb/pg_filedump
+    * https://github.com/xocolatl/extra_window_functions
+    * https://github.com/tvondra/geoip
+    * https://github.com/RhodiumToad/ip4r
+    * https://github.com/orafce/orafce
+    * https://github.com/MigOpsRepos/pg_dbms_job
+    * https://github.com/hapostgres/pg_auto_failover
+    * https://github.com/EnterpriseDB/pg_failover_slots
+    * https://github.com/vibhorkum/pg_background
+    * https://github.com/ossc-db/pg_bulkload
+    * https://github.com/EnterpriseDB/pg_catcheck
+    * https://github.com/lemoineat/pg_fkpart
+    * https://github.com/pgbigm/pg_bigm
+    * https://github.com/postgrespro/rum
+    * https://github.com/ChenHuajun/pg_roaringbitmap
+    * https://github.com/amutu/zhparser
+    * https://github.com/jaiminpan/pg_jieba
+    * https://github.com/zachasme/h3-pg
+    * https://github.com/reorg/pg_repack
+    * https://github.com/eulerto/pg_similarity
+    * https://github.com/pgRouting/pgrouting
+    * https://github.com/timescale/pgvectorscale
+    * https://github.com/df7cb/postgresql-unit
 
 ## 2. Getting started
 
@@ -139,10 +190,17 @@ touch /home/server/01-pgcustom.conf
 # -v /home/server/01-pgcustom.conf:/pgconf/01-pgcustom.conf
 ```
 
-Note 1: Configure `shared_preload_libraries` parameter to enable specific extensions. Use comma if multiple libraries
-required.
+**Note 1**: Configure `shared_preload_libraries` parameter to enable specific extensions. Use comma if multiple
+libraries
+required. The following command can be used to generate related clauses:
 
-* TODO specify parameters, mount required files
+* Generate preload library configure
+    * `podman run --rm -it goodplayer/image_postgres:v17.5 showlibrary`
+
+**Note 2**: Enable extensions by `CREATE EXTENSION` in opened databases:
+
+* Generate `CREATE EXTENSION` clauses
+    * `podman run --rm -it goodplayer/image_postgres:v17.5 showcreateextension`
 
 ## 3. Build image(postgresql 17.5)
 
@@ -236,3 +294,8 @@ The drawback of this method:
 * PGNX: [https://pgxn.org/](https://pgxn.org/)
 * Pisty: [https://pigsty.cc/](https://pigsty.cc/)
 * pgxman: [https://pgxman.com/](https://pgxman.com/)
+
+## B. Example of use
+
+//TODO
+
