@@ -127,6 +127,9 @@ The purpose of the repo is
     * https://github.com/pgRouting/pgrouting
     * https://github.com/timescale/pgvectorscale
     * https://github.com/df7cb/postgresql-unit
+    * https://github.com/alitrack/duckdb_fdw
+    * https://github.com/jirutka/smlar
+    * https://www.pgpool.net/mediawiki/index.php/Main_Page
 
 ## 2. Getting started
 
