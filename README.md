@@ -288,6 +288,10 @@ The drawback of this method:
 The drawback of this method:
 
 1. No downtime but the switching plan is complex.
+2. Drawbacks of logical replication
+    * Primary key is required in order to precisely locate changes
+    * TOAST table issue: old value may not be transferred by default
+    * DDL synchronization is not supported
 
 ## A. References
 
