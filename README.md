@@ -67,10 +67,12 @@ The purpose of the repo is
     * [x] fts: pg_search
     * [x] gis: postgis
     * [x] timeseries: timescaledb
+    * [x] util: pg_auth_mon
     * [x] util: pg_cron
     * [x] util: pg_hint_plan
     * [x] util: pg_partman
     * [x] util: pg_readonly
+    * [x] util: pg_stat_kcache
     * [x] util: pgaudit
     * [x] util: pgmq
     * [x] vector: pgvector
@@ -93,7 +95,6 @@ The purpose of the repo is
     * https://github.com/omniti-labs/pg_jobmon
         * Optional required by pg_partman
     * https://github.com/duckdb/pg_duckdb - OLAP
-    * https://github.com/RafiaSabih/pg_auth_mon
     * https://github.com/apache/age - no port to 17, graph
     * https://git.postgresql.org/gitweb/?p=pgfincore.git;a=summary
     * https://github.com/EnterpriseDB/repmgr
@@ -101,7 +102,6 @@ The purpose of the repo is
     * https://github.com/mhagander/bgw_replstatus
     * https://github.com/tvondra/count_distinct
     * https://github.com/sraoss/pg_ivm
-    * https://github.com/powa-team/pg_stat_kcache
     * https://github.com/2ndQuadrant/pglogical
     * https://github.com/pgbackrest/pgbackrest
     * https://github.com/HexaCluster/credcheck

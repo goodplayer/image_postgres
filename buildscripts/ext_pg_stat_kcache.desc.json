@@ -1,0 +1,23 @@
+{
+  "main": {
+    "name": "pg_stat_kcache",
+    "category": "util",
+    "version": "2.3.0",
+    "websites": [
+      "https://github.com/powa-team/pg_stat_kcache"
+    ]
+  },
+  "build": {
+    "script": "ext_pg_stat_kcache.sh",
+    "debian_deps": null
+  },
+  "runtime": {
+    "library_names": [
+      "pg_stat_kcache"
+    ],
+    "debian_deps": null,
+    "extension_names": [
+      "pg_stat_kcache"
+    ]
+  }
+}
