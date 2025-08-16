@@ -58,7 +58,7 @@ The purpose of the repo is
     * Support dependency installation in build and runtime stages
     * Generate `create extension` clauses for plugins
     * Generate `shared_preload_libraries` clauses for plugins
-* [ ] Provide both release image and build image
+* [x] Provide both release image and build image
     * Release image: used for production
     * Build image: for building extensions
 * [x] Postgres Extensions
@@ -212,7 +212,9 @@ required. The following command can be used to generate related clauses:
     * Please refer to the Dockerfile for the actual files to download
     * Additional files are required as well, refer to the below
 2. Run builder
-    * `podman build --no-cache --force-rm --squash-all -t goodplayer/image_postgres:v17.6 .`
+    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step1_Core.dockerfile -t goodplayer/image_postgres_builder_core:v17.6 .`
+    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step2_Ext.dockerfile -t goodplayer/image_postgres_builder_ext:v17.6 .`
+    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step3_Release.dockerfile -t goodplayer/image_postgres:v17.6 .`
 3. Push to registry
     * `podman login -u docker -p docker docker-push.registry.internal:5001`
     * `podman push goodplayer/image_postgres:v17.6 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.6`

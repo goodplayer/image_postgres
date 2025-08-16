@@ -16,6 +16,7 @@ func main() {
 		fmt.Println("No command specified.")
 		fmt.Println("Available commands:")
 		fmt.Println("  buildext              - run build scripts")
+		fmt.Println("  buildsingleext        - run build script for specific extension")
 		fmt.Println("  listext               - list available build scripts")
 		fmt.Println("  install_runtime_deps  - install runtime dependencies")
 		fmt.Println("  new                   - interactive creation of new extension description files")
@@ -31,6 +32,15 @@ func main() {
 			PgConfig: os.Args[2],
 		}
 		if err := be.Run(); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	case "buildsingleext":
+		bse := &buildext.BuildSingleExt{
+			PgConfig: os.Args[2],
+			ExtName:  os.Args[3],
+		}
+		if err := bse.Run(); err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
