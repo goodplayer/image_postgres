@@ -5,7 +5,7 @@
   * [1. Features](#1-features)
         * [Pending list](#pending-list)
   * [2. Getting started](#2-getting-started)
-  * [3. Build image(postgresql 17.5)](#3-build-imagepostgresql-175)
+  * [3. Build image(postgresql 17.6)](#3-build-imagepostgresql-176)
     * [Require modification when upgrade to a new version](#require-modification-when-upgrade-to-a-new-version)
     * [Customization](#customization)
       * [1. Customize debian repository](#1-customize-debian-repository)
@@ -58,6 +58,9 @@ The purpose of the repo is
     * Support dependency installation in build and runtime stages
     * Generate `create extension` clauses for plugins
     * Generate `shared_preload_libraries` clauses for plugins
+* [ ] Provide both release image and build image
+    * Release image: used for production
+    * Build image: for building extensions
 * [x] Postgres Extensions
     * [x] datatype: hll
     * [x] distributed: citus
@@ -141,7 +144,7 @@ podman create --name sample_pg \
     -p 5432:5432 \
     -v /home/server/pgdata:/pgdata \
     -v /home/server/pgdata_wal:/pgdata_wal \
-    goodplayer/image_postgres:v17.5
+    goodplayer/image_postgres:v17.6
 
 # start container
 podman start sample_pg
@@ -162,16 +165,14 @@ New standby instance from primary
 podman run --rm --name pg_standby_init \
     -v /home/server/demo1/pgdata:/pgdata \
     -v /home/server/demo1/pgdata_wal:/pgdata_wal \
-    goodplayer/image_postgres:v17.5 new_standby 17 10.11.0.5 5432 repusr repusr rep_slot_1
-
-#podman rm pg_standby_init
+    goodplayer/image_postgres:v17.6 new_standby 17 10.11.0.5 5432 repusr repusr rep_slot_1
 
 podman create --name sample_pg \
     -p 5432:5432 \
     -v /home/server/demo1/pgdata:/pgdata \
     -v /home/server/demo1/pgdata_wal:/pgdata_wal \
     -v /home/server/01-pgcustom.conf:/pgconf/01-pgcustom.conf \
-    goodplayer/image_postgres:v17.5
+    goodplayer/image_postgres:v17.6
 
 podman start sample_pg
 ```
@@ -198,23 +199,23 @@ libraries
 required. The following command can be used to generate related clauses:
 
 * Generate preload library configure
-    * `podman run --rm -it goodplayer/image_postgres:v17.5 showlibrary`
+    * `podman run --rm -it goodplayer/image_postgres:v17.6 showlibrary`
 
 **Note 2**: Enable extensions by `CREATE EXTENSION` in opened databases:
 
 * Generate `CREATE EXTENSION` clauses
-    * `podman run --rm -it goodplayer/image_postgres:v17.5 showcreateextension`
+    * `podman run --rm -it goodplayer/image_postgres:v17.6 showcreateextension`
 
-## 3. Build image(postgresql 17.5)
+## 3. Build image(postgresql 17.6)
 
-1. Download `postgresql-17.5.tar.bz2` file from postgresql website
+1. Download `postgresql-17.6.tar.bz2` file from postgresql website
     * Please refer to the Dockerfile for the actual files to download
     * Additional files are required as well, refer to the below
 2. Run builder
-    * `podman build --no-cache --force-rm --squash-all -t goodplayer/image_postgres:v17.5 .`
+    * `podman build --no-cache --force-rm --squash-all -t goodplayer/image_postgres:v17.6 .`
 3. Push to registry
     * `podman login -u docker -p docker docker-push.registry.internal:5001`
-    * `podman push goodplayer/image_postgres:v17.5 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.5`
+    * `podman push goodplayer/image_postgres:v17.6 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.6`
 
 Additional files to downloads
 

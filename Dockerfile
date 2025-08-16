@@ -1,11 +1,11 @@
 #======================================
-ARG OS_VERSION=trixie-20250630
+ARG OS_VERSION=13.0
 # Step1: build
 FROM debian:${OS_VERSION} AS build
 
 # Custom parameters
-ARG PG_SOURCE_FILE=postgresql-17.5.tar.bz2
-ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.5
+ARG PG_SOURCE_FILE=postgresql-17.6.tar.bz2
+ARG PG_SOURCE_EXTRACT_FOLDER=postgresql-17.6
 
 # setup debian apt repository
 COPY debian.sources /etc/apt/sources.list.d/debian.sources

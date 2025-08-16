@@ -11,6 +11,9 @@ export PG_CONFIG=$1/pg_config
 # compile sourcecode
 tar xf $EXT_SRC
 cd paradedb-0.17.0/pg_search/
-cargo install cargo-pgrx
+
+# specify cargo-pgrx version according to the requirement in the sourcecode
+cargo install cargo-pgrx --version 0.15.0 --locked
+
 cargo pgrx init --pg17=$PG_CONFIG
 PATH=$1:$PATH cargo pgrx install --profile release
