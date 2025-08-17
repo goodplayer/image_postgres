@@ -1,0 +1,23 @@
+{
+  "main": {
+    "name": "pg_bigm",
+    "category": "fts",
+    "version": "1.2",
+    "websites": [
+      "https://github.com/pgbigm/pg_bigm"
+    ]
+  },
+  "build": {
+    "script": "ext_pg_bigm.sh",
+    "debian_deps": null
+  },
+  "runtime": {
+    "library_names": [
+      "pg_bigm"
+    ],
+    "debian_deps": null,
+    "extension_names": [
+      "pg_bigm"
+    ]
+  }
+}

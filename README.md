@@ -64,6 +64,7 @@ The purpose of the repo is
 * [x] Postgres Extensions
     * [x] datatype: hll
     * [x] distributed: citus
+    * [x] fts: pg_bigm
     * [x] fts: pg_search
     * [x] gis: postgis
     * [x] timeseries: timescaledb
@@ -119,7 +120,6 @@ The purpose of the repo is
     * https://github.com/ossc-db/pg_bulkload
     * https://github.com/EnterpriseDB/pg_catcheck
     * https://github.com/lemoineat/pg_fkpart
-    * https://github.com/pgbigm/pg_bigm
     * https://github.com/postgrespro/rum
     * https://github.com/ChenHuajun/pg_roaringbitmap
     * https://github.com/amutu/zhparser
