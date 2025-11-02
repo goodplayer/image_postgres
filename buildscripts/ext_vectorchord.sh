@@ -9,7 +9,7 @@ export PG_CONFIG=$1/pg_config
 . "$HOME/.cargo/env"
 
 # compile sourcecode
-tar xf $EXT_SRC
+tar xf ../buildpkg/$EXT_SRC
 cd VectorChord-0.4.3
 PATH=$1:$PATH make build
 PATH=$1:$PATH make install

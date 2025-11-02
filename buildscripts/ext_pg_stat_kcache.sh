@@ -5,7 +5,7 @@ PWD_DIR=`pwd`
 export PG_CONFIG=$1/pg_config
 
 # compile sourcecode
-tar xf $EXT_SRC
+tar xf ../buildpkg/$EXT_SRC
 cd pg_stat_kcache-REL2_3_0
 PATH=$1:$PATH make
 PATH=$1:$PATH make install

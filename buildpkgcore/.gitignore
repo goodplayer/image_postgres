@@ -1,0 +1,4 @@
+# sourcecode files
+*.tar.gz
+*.zip
+.tar.bz2

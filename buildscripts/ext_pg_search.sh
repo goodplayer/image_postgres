@@ -9,7 +9,7 @@ export PG_CONFIG=$1/pg_config
 . "$HOME/.cargo/env"
 
 # compile sourcecode
-tar xf $EXT_SRC
+tar xf ../buildpkg/$EXT_SRC
 cd paradedb-0.17.0/pg_search/
 
 # specify cargo-pgrx version according to the requirement in the sourcecode

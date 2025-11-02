@@ -5,7 +5,7 @@ PWD_DIR=`pwd`
 export PG_CONFIG=$1/pg_config
 
 # compile sourcecode
-unzip $EXT_SRC
+unzip ../buildpkg/$EXT_SRC
 cd pg_readonly-master
 PATH=$1:$PATH make
 PATH=$1:$PATH make install
