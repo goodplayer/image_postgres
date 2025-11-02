@@ -1,0 +1,33 @@
+{
+  "main": {
+    "name": "age",
+    "category": "graph",
+    "version": "1.6.0",
+    "websites": [
+      "https://github.com/apache/age",
+      "https://age.apache.org/"
+    ]
+  },
+  "build": {
+    "script": "ext_age.sh",
+    "debian_deps": [
+      "build-essential",
+      "libreadline-dev",
+      "zlib1g-dev",
+      "flex",
+      "bison"
+    ]
+  },
+  "runtime": {
+    "library_names": [
+      "age"
+    ],
+    "debian_deps": [
+      "libreadline8t64",
+      "zlib1g"
+    ],
+    "extension_names": [
+      "age"
+    ]
+  }
+}

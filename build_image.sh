@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 export HTTP_PROXY=http://10.11.0.31:1080
 export HTTPS_PROXY=http://10.11.0.31:1080
 export NO_PROXY=mirrors.ustc.edu.cn

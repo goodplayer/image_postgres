@@ -67,6 +67,7 @@ The purpose of the repo is
     * [x] fts: pg_bigm
     * [x] fts: pg_search
     * [x] gis: postgis
+    * [x] graph: apache age
     * [x] timeseries: timescaledb
     * [x] util: pg_auth_mon
     * [x] util: pg_cron
@@ -96,7 +97,6 @@ The purpose of the repo is
     * https://github.com/omniti-labs/pg_jobmon
         * Optional required by pg_partman
     * https://github.com/duckdb/pg_duckdb - OLAP
-    * https://github.com/apache/age - no port to 17, graph
     * https://git.postgresql.org/gitweb/?p=pgfincore.git;a=summary
     * https://github.com/EnterpriseDB/repmgr
     * https://github.com/HypoPG/hypopg
