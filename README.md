@@ -44,11 +44,13 @@ The purpose of the repo is
     * Current `UID`: 30000
     * Current `GID`: 30000
 * [x] Support install dependencies for extensions
-* [x] Supporting customize extension
+* [x] Support customize extension
     * Customize extensions by modifying .desc.json and .sh
-* [ ] Supporting customize initdb parameters
-* [ ] Supporting ssl configuration & custom CA
+* [ ] Support customize initdb parameters
+* [ ] Support ssl configuration & custom CA
 * [ ] Support postgresql archive mode
+* [x] Support initializing SQL file for setting up the primary database
+* [ ] Support agent for postgresql
 * [x] Support init standby database from primary database
     * run container with parameters: `new_standby 17 127.0.0.1 5432 repusr repusr replicaton_slot_name`
     * Note: must keep configurations same between primary instance and standby instances, otherwise postgres may reject
@@ -193,6 +195,11 @@ touch /home/server/01-pgcustom.conf
 # add parameter as a mounted file:
 # -v /home/server/01-pgcustom.conf:/pgconf/01-pgcustom.conf
 ```
+
+**Important**
+
+* Change the superuser password after initialized. The superuser is `admin`
+* Change the replication user password after initialized. The replication user is `replica`
 
 **Note 1**: Configure `shared_preload_libraries` parameter to enable specific extensions. Use comma if multiple
 libraries

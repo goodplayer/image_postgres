@@ -36,6 +36,14 @@ init_database() {
         --wal-segsize=256
 }
 
+run_init_sql() {
+    sudo -u admin /pg/bin/pg_ctl -D /pgdata/$1 -l /tmp/init_start_logfile start
+    sudo -u admin PGPASSWORD=admin /pg/bin/psql -U admin -d postgres -f /tmp/init_scripts/init.sql
+    # delete when
+    sudo rm -rf /tmp/init_scripts
+    sudo -u admin /pg/bin/pg_ctl -D /pgdata/$1 -l /tmp/init_start_logfile stop
+}
+
 basic_configure() {
     # replace pg_hba.conf content
     cat /pgconf/hba_append > /pgdata/$1/pg_hba.conf
@@ -95,6 +103,7 @@ init_standby() {
 if [ $1 == "postgres" ]; then
     if [ ! -f "/pgdata/current/PG_VERSION" ]; then
         init_database $2
+        run_init_sql $2
         basic_configure $2
         force_link_current_database $2
     else

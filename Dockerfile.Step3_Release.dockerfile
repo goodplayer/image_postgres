@@ -40,6 +40,9 @@ RUN chmod +x /entrypoint.sh
 COPY pgconf /pgconf
 RUN chown -R admin: /pgconf
 
+# copy init scripts
+COPY init_scripts /tmp/init_scripts
+
 #=======================================
 # Final step for entrypoint
 
