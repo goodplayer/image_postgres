@@ -17,7 +17,7 @@ COPY debian.sources /etc/apt/sources.list.d/debian.sources
 RUN apt update && apt upgrade -y
 
 # install apt packages
-RUN apt install -y libxml2 libicu76 libssl3 libreadline8 libxslt1.1 libllvm19 libossp-uuid16 sudo
+RUN apt install -y libxml2 libicu76 libssl3 libreadline8 libxslt1.1 libllvm19 libossp-uuid16 sudo libpython3.13
 
 # install plugin dependencies
 RUN mkdir /buildscripts

@@ -22,6 +22,7 @@ RUN apt install -y build-essential \
                 libzstd-dev libreadline-dev \
                 libxslt1-dev libossp-uuid-dev zlib1g-dev \
                 libssl-dev \
+                libpython3.13-dev libperl-dev \
                 unzip wget curl
 
 # copy postgresql sourcecode
@@ -35,6 +36,8 @@ RUN ./configure --prefix=/pg \
     --with-segsize=4 \
     --with-wal-blocksize=16 \
     --with-llvm \
+    --with-perl \
+    --with-python \
     --with-uuid=ossp \
     --with-libxml \
     --with-libxslt \
