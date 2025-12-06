@@ -1,4 +1,4 @@
-ARG CORE_IMAGE_VERSION=v17.6
+ARG CORE_IMAGE_VERSION
 FROM goodplayer/image_postgres_builder_core:${CORE_IMAGE_VERSION}
 
 # install build tool

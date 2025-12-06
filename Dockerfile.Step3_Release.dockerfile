@@ -1,5 +1,5 @@
-ARG EXT_IMAGE_VERSION=v17.6
-ARG OS_VERSION=13.1
+ARG EXT_IMAGE_VERSION
+ARG OS_VERSION
 FROM goodplayer/image_postgres_builder_ext:${EXT_IMAGE_VERSION} AS build
 
 FROM debian:${OS_VERSION}
