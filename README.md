@@ -68,6 +68,7 @@ The purpose of the repo is
     * [x] distributed: citus
     * [x] fts: pg_bigm
     * [x] fts: pg_search
+    * [x] ftp: rum
     * [x] gis: postgis
     * [x] graph: apache age
     * [x] timeseries: timescaledb
@@ -122,7 +123,6 @@ The purpose of the repo is
     * https://github.com/ossc-db/pg_bulkload
     * https://github.com/EnterpriseDB/pg_catcheck
     * https://github.com/lemoineat/pg_fkpart
-    * https://github.com/postgrespro/rum
     * https://github.com/ChenHuajun/pg_roaringbitmap
     * https://github.com/amutu/zhparser
     * https://github.com/jaiminpan/pg_jieba
