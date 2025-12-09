@@ -135,6 +135,7 @@ The purpose of the repo is
     * https://github.com/alitrack/duckdb_fdw
     * https://github.com/jirutka/smlar
     * https://www.pgpool.net/mediawiki/index.php/Main_Page
+    * https://www.orioledb.com/
 
 ## 2. Getting started
 
