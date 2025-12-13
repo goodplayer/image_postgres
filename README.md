@@ -136,6 +136,7 @@ The purpose of the repo is
     * https://github.com/jirutka/smlar
     * https://www.pgpool.net/mediawiki/index.php/Main_Page
     * https://www.orioledb.com/
+    * apache cloudberry
 
 ## 2. Getting started
 
@@ -207,25 +208,25 @@ libraries
 required. The following command can be used to generate related clauses:
 
 * Generate preload library configure
-    * `podman run --rm -it goodplayer/image_postgres:v17.6 showlibrary`
+    * `podman run --rm -it goodplayer/image_postgres:v17.7 showlibrary`
 
 **Note 2**: Enable extensions by `CREATE EXTENSION` in opened databases:
 
 * Generate `CREATE EXTENSION` clauses
-    * `podman run --rm -it goodplayer/image_postgres:v17.6 showcreateextension`
+    * `podman run --rm -it goodplayer/image_postgres:v17.7 showcreateextension`
 
-## 3. Build image(postgresql 17.6)
+## 3. Build image(postgresql 17.7)
 
-1. Download `postgresql-17.6.tar.bz2` file from postgresql website
+1. Download `postgresql-17.7.tar.bz2` file from postgresql website
     * Please refer to the Dockerfile for the actual files to download
     * Additional files are required as well, refer to the below
 2. Run builder
-    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step1_Core.dockerfile -t goodplayer/image_postgres_builder_core:v17.6 .`
-    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step2_Ext.dockerfile -t goodplayer/image_postgres_builder_ext:v17.6 .`
-    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step3_Release.dockerfile -t goodplayer/image_postgres:v17.6 .`
+    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step1_Core.dockerfile -t goodplayer/image_postgres_builder_core:v17.7 .`
+    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step2_Ext.dockerfile -t goodplayer/image_postgres_builder_ext:v17.7 .`
+    * `podman build --no-cache --force-rm --squash-all -f Dockerfile.Step3_Release.dockerfile -t goodplayer/image_postgres:v17.7 .`
 3. Push to registry
     * `podman login -u docker -p docker docker-push.registry.internal:5001`
-    * `podman push goodplayer/image_postgres:v17.6 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.6`
+    * `podman push goodplayer/image_postgres:v17.7 docker-push.registry.internal:5001/goodplayer/image_postgres:v17.7`
 
 Additional files to downloads
 
