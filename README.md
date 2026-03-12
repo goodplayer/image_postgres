@@ -137,6 +137,8 @@ The purpose of the repo is
     * https://www.pgpool.net/mediawiki/index.php/Main_Page
     * https://www.orioledb.com/
     * apache cloudberry
+    * https://github.com/timescale/pg_textsearch
+    * https://github.com/timescale/pgvectorscale
 
 ## 2. Getting started
 
